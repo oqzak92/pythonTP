@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la Voiture</title>
+</head>
+<body>
+    <h1>Détails de la Voiture</h1>
+    
+    <p><strong>Marque :</strong> {{ voiture.marque }}</p>
+    <p><strong>Modèle :</strong> {{ voiture.modele }}</p>
+    <p><strong>Couleur :</strong> {{ voiture.couleur }}</p>
+    <p><strong>Prix :</strong> {{ voiture.prix }}</p>
+
+    <a href="{% url 'voiture:home' %}">Retour à la liste</a>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Supprimer cette voiture</button>
+    </form>
+
+</body>
+</html>

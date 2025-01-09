@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Voitures</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #0400ff;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+        }
+        .add-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #0400ff;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-button:hover {
+            background-color: #0400ff;
+        }
+        .filter-form {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .filter-form select, .filter-form button {
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+        .car-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .car-item {
+            background-color: white;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .car-item h3 {
+            margin: 0 0 10px;
+            font-size: 1.2em;
+        }
+        .car-item p {
+            margin: 5px 0;
+        }
+        .price {
+            font-weight: bold;
+            color: #0400ff;
+            margin-top: 10px;
+        }
+        .profile-info {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+            padding: 10px;
+            background-color: #0400ff;
+            color: white;
+            border-radius: 5px;
+        }
+        .logout-button {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .logout-button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Liste des Voitures</h1>
+    </header>
+
+
+
+
+
+
+    <!-- Affichage du profil et bouton de déconnexion -->
+    {% if user.is_authenticated %}
+    <div class="profile-info">
+        <span>Bienvenue, {{ user.username }}</span>
+        <a href="{% url 'comptes:logout' %}">
+            <button class="logout-button">Déconnexion</button>
+        </a>
+    </div>
+    {% endif %}
+
+
+
+
+
+
+
+
+    <!-- Bouton pour ajouter une voiture -->
+    <a href="{% url 'voiture:ajouter_voiture' %}">
+        <button class="add-button">Ajouter une Voiture</button>
+    </a>
+
+
+
+
+
+
+
+    <!-- Formulaire de filtre -->
+    <form method="GET" class="filter-form">
+        <label for="marque">Filtrer par marque:</label>
+        <select name="marque" id="marque">
+            <option value="">{{ tout }}</option>  <!-- Option pour "tout" -->
+            {% for marque in marques %}
+                <option value="{{ marque }}" {% if marque == request.GET.marque %} selected {% endif %}>
+                    {{ marque }}
+                </option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filtrer</button>
+    </form>
+
+
+
+
+
+
+
+    <!-- Liste des voitures -->
+    <ul class="car-list">
+        {% for voiture in voitures %}
+            <li class="car-item">
+                <a href="{% url 'voiture:detail_voiture' voiture.id %}">
+                    <h3>{{ voiture.marque }}</h3>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+
+
+
+
+
+
+</body>
+</html>

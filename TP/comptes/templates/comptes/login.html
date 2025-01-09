@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+</head>
+<body>
+
+    <h1>Se connecter</h1>
+
+    {% if conect is True %}
+        <p>Connexion réussie ! Bienvenue.</p>
+    {% elif conect is False %}
+        <p>Identifiants invalides, essayez à nouveau.</p>
+    {% elif conect is None %}
+        <p>Veuillez vous connecter en utilisant votre nom d'utilisateur et mot de passe.</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Se connecter</button>
+    </form>
+
+</body>
+</html>
